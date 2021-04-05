@@ -1,0 +1,39 @@
+<h2>Search full-text</h2>
+<?php echo $this->form; ?>
+
+<?php if (isset($this->results) && count($this->results) > 0): ?>
+    <h2>Search full-text Results (<?php echo round($this->time, 5); ?> sec.)</h2>
+    <p><?php echo count($this->results); ?> result(s) found:</p>
+    <p>in <?php echo $this->indexSize; ?> all documents</p>
+    <p>in <?php echo $this->indexCountDocs; ?> all no deleted documents</p>
+
+    <?php if (count($this->results)): ?>
+        <?php $x = 1; ?>
+        <?php foreach ($this->results as $r): ?>
+            <div>
+                <?php echo $x; ?>.
+                <a href="<?php echo $this->url(array('id' => $this->escape($r->RecordID)), 'catalog-display'); ?>">
+                    <?php echo $this->escape($r->Title); ?>
+                    (<?php echo $this->escape($r->Year); ?>)
+                </a>
+                <br/>
+                Score: <?php printf('%1.4f', $this->escape($r->score)); ?>
+                <br/>
+                <strong>
+                    Grade: <?php echo $this->escape($r->Grade); ?> |
+                    Country: <?php echo $this->escape($r->Country); ?> |
+                    Sale price: $<?php echo sprintf('%0.2f', $this->escape($r->SalePriceMin)); ?> to
+                    $<?php echo sprintf('%0.2f', $this->escape($r->SalePriceMax)); ?>
+                </strong>
+            </div>
+            <br/>
+            <?php $x++; ?>
+        <?php endforeach; ?>
+    <?php endif; ?>
+<?php endif; ?>
+<div>
+    <a href="<?php echo $this->url(array(
+        'module' => 'catalog',
+        'controller' => 'item',
+        'action' => 'create'), null, true); ?>">Add Item</a>
+</div>

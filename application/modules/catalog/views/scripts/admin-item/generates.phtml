@@ -1,0 +1,8 @@
+<h2>Generates fake data</h2>
+<?php echo $this->form; ?>
+
+<?php if (isset($this->results) && $this->countFaker > 0): ?>
+    <h3>Generates fake data results (<?php echo round($this->time, 5); ?> sec.):</h3>
+    <p>- count <?php echo $this->countFaker; ?></p>
+    <p>- ids: <?php echo $this->results; ?></p>
+<?php endif; ?>

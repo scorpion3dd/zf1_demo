@@ -1,0 +1,180 @@
+body {
+  margin: 0; 
+  padding: 0; 
+  font-family: 'Verdana', sans-serif;
+  color: black;
+}
+
+body a {
+  text-decoration: none;
+  font-weight: bolder;
+  color: #2441F5;
+}
+
+body a:hover {
+  text-decoration: underline;
+}
+
+#header {
+  height: 100px;
+  background: #2441F5;
+}
+
+#logo {
+  float: left;
+  padding-left: 50px;
+  padding-top: 10px;  
+}
+
+
+#menu-locale-container {
+  float: right;
+}
+
+#locale {
+  text-align: right;
+  padding-right: 10px;
+  padding-top: 10px;
+}
+
+#menu {
+  padding-top: 35px;
+}
+
+#menu a {
+  color: white;
+  font-size: 12pt;
+  border: solid 4px white;
+  padding: 4px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+#menu a:hover {
+  color: red;
+  font-size: 12pt;
+  border: solid 4px red;
+  text-decoration: none;
+}
+
+
+#content {
+  min-height: 400px;  
+  padding-left: 50px;
+  padding-right: 50px;
+}
+
+#footer {
+  float: right;
+  font-size: smaller;
+  background: #2441F5;
+  padding-left: 20px;
+  color: white;
+}
+
+#footer a {
+  color: white;
+}
+
+form dd {
+  margin: 0px;  
+  padding-bottom: 10px;
+}
+
+form input {
+  font-size: 12pt;
+}
+
+form label.required {
+  color: red;
+}
+
+form textarea {
+  font-size: 12pt;
+}
+
+form ul.errors {
+  padding: 0px;  
+  color: red;
+  font-weight: bolder;
+  list-style: none;
+}
+
+form fieldset {
+  width: 700px;
+  padding: 10px;
+  border: 1px solid #4062A8;
+  margin-bottom: 10px; 
+}
+
+form fieldset legend {
+  border: 1px solid #4062A8;
+  color: white;
+  background-color: #4062A8;
+  font-weight: bold;
+}
+
+#record td.key {
+  width: 100px;
+  font-weight: bold;
+  vertical-align: top;
+}
+
+
+#records table {
+  border: solid 1px black;
+  border-collapse: collapse;
+  border-spacing: 0px;
+}
+
+#records td {
+  border: solid 1px black;
+  padding: 5px;
+}
+
+#records td.key {
+  font-weight: bold;
+  vertical-align: top;
+}
+
+ul.errors {
+  padding: 0px;  
+  color: red;
+  font-weight: bolder;
+  list-style: none;
+}
+
+.form-errors {
+  padding: 0px;  
+  font-weight: bolder;
+  list-style: none;
+}
+
+form input[type=file]  {
+  display: block;
+  margin-bottom: 15px;
+}
+
+#images {
+  width: auto;  
+  text-align: left;
+  padding-bottom: 10px;
+}
+
+#images img {
+  padding: 10px;
+  margin-right: 20px;
+  border: solid 2px silver;
+}
+
+#error-image {
+  float: left;
+  padding-right: 50px;
+  padding-bottom: 20px;
+}
+
+
+#error-data {
+  clear: both;
+  border-top: solid 2px black;
+}

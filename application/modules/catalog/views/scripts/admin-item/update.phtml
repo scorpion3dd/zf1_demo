@@ -1,0 +1,21 @@
+<h2>Update Item</h2>
+<?php echo $this->form; ?>
+
+<script>
+handleInputDisplayOnSelect('DisplayStatus', 'divDisplayUntil', new Array('1'));
+
+cal = new YAHOO.widget.Calendar('cal', 'divCalendar', {close:true});
+cal.render();
+YAHOO.util.Event.addListener('DisplayUntil', 'click', cal.show, cal, true);
+cal.selectEvent.subscribe(handleSelect, cal, true);
+
+function handleSelect(type,args,obj) {
+    var dates = args[0];
+    var date = dates[0];
+    var year = date[0];
+    var month = date[1];
+    var day = date[2];
+    var input = document.getElementById('DisplayUntil');
+    input.value = year + '-' + padZero(month, 2) + '-' + padZero(day, 2);
+}
+</script>

@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <base href="/"/>
+    <link rel="stylesheet" type="text/css" href="/css/master.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/admin.css"/>
+    <?php echo $this->headLink(); ?>
+    <?php echo $this->headScript(); ?>
+    <script src="/js/form.js"></script>
+</head>
+<body>
+<div id="header">
+    <div id="logo">
+        <a href="<?php echo $this->url(array(), 'home'); ?>">
+            <img src="/images/logo-admin.gif"/>
+        </a>
+    </div>
+
+    <div id="menu-locale-container">
+        <div id="locale">
+            <a href="<?php echo $this->url(array('module' => 'default', 'controller' => 'locale',
+                'action' => 'index', 'locale' => 'en_GB'), 'default', true); ?>">
+                <img src="/images/locale/en_gb.gif" />
+            </a>
+            <a href="<?php echo $this->url(array('module' => 'default', 'controller' => 'locale',
+                'action' => 'index', 'locale' => 'en_US'), 'default', true); ?>">
+                <img src="/images/locale/en_us.gif" />
+            </a>
+            <a href="<?php echo $this->url(array('module' => 'default', 'controller' => 'locale',
+                'action' => 'index', 'locale' => 'fr_FR'), 'default', true); ?>">
+                <img src="/images/locale/fr_fr.gif" />
+            </a>
+            <a href="<?php echo $this->url(array('module' => 'default', 'controller' => 'locale',
+                'action' => 'index', 'locale' => 'de_DE'), 'default', true); ?>">
+                <img src="/images/locale/de_de.gif" />
+            </a>
+            <a href="<?php echo $this->url(array('module' => 'default', 'controller' => 'locale',
+                'action' => 'index', 'locale' => 'ru_RU'), 'default', true); ?>">
+                <img src="/images/locale/ru_ru.gif" />
+            </a>
+        </div>
+
+        <div id="menu">
+            <?php if (Zend_Auth::getInstance()->hasIdentity()): ?>
+                <a href="<?php echo $this->url(array(), 'admin-catalog-index'); ?>">
+                    <?php echo $this->translate('menu-admin-catalog'); ?>
+                </a>
+                <a href="<?php echo $this->url(array(), 'admin-config'); ?>">
+                    <?php echo $this->translate('menu-admin-settings'); ?>
+                </a>
+                <a href="<?php echo $this->url(array(), 'admin-catalog-generates'); ?>">
+                    <?php echo $this->translate('menu-admin-gen'); ?>
+                </a>
+                <a href="<?php echo $this->url(array(), 'admin-catalog-indexes'); ?>">
+                    <?php echo $this->translate('menu-admin-indexes'); ?>
+                </a>
+                <a href="<?php echo $this->url(array(), 'logout'); ?>">
+                    <?php echo $this->translate('menu-admin-logout'); ?>
+                </a>
+            <?php else: ?>
+                <a href="<?php echo $this->url(array(), 'login'); ?>">
+                    <?php echo $this->translate('menu-admin-login'); ?>
+                </a>
+            <?php endif; ?>
+        </div>
+    </div>
+
+</div>
+
+<div id="content">
+    <?php echo $this->layout()->content ?>
+</div>
+
+<div id="footer">
+    <p>Created with <a href="http://framework.zend.com/">Zend Framework</a>.
+    </p>
+</div>
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <base href="/"/>
+    <link rel="stylesheet" type="text/css" href="/css/master.css"/>
+    <?php
+    if ($this->dojo()->isEnabled()):
+        echo $this->dojo();
+    endif;
+    ?>
+</head>
+<body class="tundra">
+<div id="header">
+    <div id="logo">
+        <a href="<?php echo $this->url(array(), 'home'); ?>">
+            <img src="/images/logo.gif"/>
+        </a>
+    </div>
+
+    <div id="menu-locale-container">
+        <div id="locale">
+            <a href="<?php echo $this->url(array('module' => 'default', 'controller' => 'locale',
+                'action' => 'index', 'locale' => 'en_GB'), 'default', true); ?>">
+                <img src="/images/locale/en_gb.gif"/>
+            </a>
+            <a href="<?php echo $this->url(array('module' => 'default', 'controller' => 'locale',
+                'action' => 'index', 'locale' => 'en_US'), 'default', true); ?>">
+                <img src="/images/locale/en_us.gif"/>
+            </a>
+            <a href="<?php echo $this->url(array('module' => 'default', 'controller' => 'locale',
+                'action' => 'index', 'locale' => 'fr_FR'), 'default', true); ?>">
+                <img src="/images/locale/fr_fr.gif"/>
+            </a>
+            <a href="<?php echo $this->url(array('module' => 'default', 'controller' => 'locale',
+                'action' => 'index', 'locale' => 'de_DE'), 'default', true); ?>">
+                <img src="/images/locale/de_de.gif"/>
+            </a>
+            <a href="<?php echo $this->url(array('module' => 'default', 'controller' => 'locale',
+                'action' => 'index', 'locale' => 'ru_RU'), 'default', true); ?>">
+                <img src="/images/locale/ru_ru.gif"/>
+            </a>
+        </div>
+
+        <div id="menu">
+            <a href="<?php echo $this->url(array(), 'home'); ?>">
+                <?php echo $this->translate('menu-home'); ?>
+            </a>
+            <a href="<?php echo $this->url(array(), 'news'); ?>">
+                <?php echo $this->translate('menu-news'); ?>
+            </a>
+            <a href="<?php echo $this->url(array('page' => 'services'), 'static-content'); ?>">
+                <?php echo $this->translate('menu-services'); ?>
+            </a>
+            <a href="<?php echo $this->url(array(
+                'module' => 'catalog',
+                'controller' => 'item',
+                'action' => 'search-full'), 'default', true); ?>">
+                <?php echo $this->translate('menu-search-full'); ?>
+            </a>
+            <a href="<?php echo $this->url(array(
+                'module' => 'catalog',
+                'controller' => 'item',
+                'action' => 'search-simple'), 'default', true); ?>">
+                <?php echo $this->translate('menu-search-simple'); ?>
+            </a>
+            <a href="<?php echo $this->url(array(), 'contact'); ?>">
+                <?php echo $this->translate('menu-contact'); ?>
+            </a>
+            <a href="<?php echo $this->url(array(
+                'module' => 'default',
+                'controller' => 'login',
+                'action' => 'login'), 'default', true); ?>">
+                <?php echo $this->translate('menu-admin'); ?>
+            </a>
+        </div>
+    </div>
+</div>
+
+<div id="content">
+    <?php echo $this->layout()->content ?>
+    <div id="navigation">
+        <fieldset>
+            <legend>Navigation</legend>
+            <?php echo $this->navigation()->menu(); ?>
+        </fieldset>
+    </div>
+</div>
+
+<div id="footer">
+    <p> <?php echo $this->translate('created-with'); ?> <a href="http://framework.zend.com/">Zend Framework</a>.
+    </p>
+</div>
+</body>
+</html>

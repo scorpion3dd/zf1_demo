@@ -1,0 +1,16 @@
+.vagrant
+vendor/*
+vendor
+composer.lock
+bin/dbunit
+bin/phpunit
+.idea/*
+.idea
+db/*
+tmp/*
+data/logs/*.xml
+log/*
+_vspom
+build
+docs
+none

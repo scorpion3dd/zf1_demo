@@ -1,0 +1,104 @@
+<h2>View Item</h2>
+<h3>
+    FOR SALE:
+    <?php echo $this->escape($this->item['Title']); ?> -
+    <?php echo $this->escape($this->item['Year']); ?> -
+    <?php echo $this->escape($this->item['Zf1_Model_Grade']['GradeName']); ?>
+</h3>
+
+<div id="container">
+    <div id="images">
+        <?php foreach ($this->images as $image): ?>
+            <img src="/uploads/<?php echo $this->escape($image); ?>" width="150" height="150"/>
+        <?php endforeach; ?>
+    </div>
+    <div id="record">
+        <table>
+            <tr>
+                <td class="key">Title:</td>
+                <td class="value">
+                    <?php echo $this->escape($this->item['Title']); ?>
+                </td>
+            </tr>
+            <tr>
+                <td class="key">Type:</td>
+                <td class="value">
+                    <?php echo $this->escape(
+                        $this->item['Zf1_Model_Type']['TypeName']); ?>
+                </td>
+            </tr>
+            <tr>
+                <td class="key">Year:</td>
+                <td class="value">
+                    <?php echo $this->escape($this->item['Year']); ?>
+                </td>
+            </tr>
+            <tr>
+                <td class="key">Country:</td>
+                <td class="value">
+                    <?php echo $this->escape(
+                        $this->item['Zf1_Model_Country']['CountryName']); ?>
+                </td>
+            </tr>
+            <tr>
+                <td class="key">Denomination:</td>
+                <td class="value">
+                    <?php echo $this->escape(
+                            Zend_Locale_Format::toNumber($this->item['Denomination'],
+                                array(
+                                    'locale' => $this->locale,
+                                    'precision' => 2
+                                ))); ?>
+                </td>
+            </tr>
+            <tr>
+                <td class="key">Grade:</td>
+                <td class="value">
+                    <?php echo $this->escape(
+                        $this->item['Zf1_Model_Grade']['GradeName']); ?>
+                </td>
+            </tr>
+            <tr>
+                <td class="key">Sale price:</td>
+                <td class="value">
+                    $
+                    <?php echo $this->escape(
+                        Zend_Locale_Format::toNumber($this->item['SalePriceMin'],
+                            array(
+                                'locale' => $this->locale,
+                                'precision' => 2
+                            ))); ?> -
+                    $<?php echo $this->escape(
+                        Zend_Locale_Format::toNumber($this->item['SalePriceMax'],
+                            array(
+                                'locale' => $this->locale,
+                                'precision' => 2
+                            ))); ?>
+                </td>
+            </tr>
+            <tr>
+                <td class="key">Description:</td>
+                <td class="value">
+                    <?php echo $this->escape($this->item['Description']); ?>
+                </td>
+            </tr>
+            <tr>
+                <td class="key">Date posted:</td>
+                <td class="value">
+                    <?php echo $this->escape($this->recordDate->get(Zend_Date::DATE_FULL)); ?>
+                </td>
+            </tr>
+            <tr>
+                <td class="key">Seller:</td>
+                <td class="value">
+                    <?php echo $this->escape($this->item['SellerName']); ?>
+                    (<?php echo $this->escape($this->item['SellerEmail']); ?>)
+                    <br/>
+                    <?php echo $this->escape($this->item['SellerAddress']); ?>
+                    <br/>
+                    <?php echo $this->escape($this->item['SellerTel']); ?>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,7 @@
+<h2>Create indexes</h2>
+<?php echo $this->form; ?>
+
+<?php if (isset($this->results) && $this->countFaker > 0): ?>
+    <h3>Create indexes results (<?php echo round($this->time, 5); ?> sec.):</h3>
+    <p>- count <?php echo $this->countFaker; ?></p>
+<?php endif; ?>

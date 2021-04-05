@@ -1,0 +1,104 @@
+<h2>News</h2>
+<div id="newsfeeds">
+
+    <div id="posts">
+        <strong style="padding-left: 35px">Recent news.google.com about
+            <a href="http://news.google.com/news?hl=en&q=<?php echo $this->q; ?>">
+                '<?php echo $this->q; ?>'
+            </a>:
+        </strong>
+        <p id="hdiv"></p>
+        <?php $count = 0; ?>
+        <?php if (isset($this->feeds[0])): ?>
+            <?php foreach ($this->feeds[0] as $entry): ?>
+                <?php if ($count >= 5) break; ?>
+                <p class="post">
+                <span class="text">
+                  <a href="<?php echo $entry->getLink(); ?>">
+                    <?php echo $entry->getTitle(); ?>
+                  </a>
+                </span>
+                    <span class="time">
+                  <?php echo $entry->getDateModified(); ?>
+                </span>
+                </p>
+                <?php $count++; ?>
+            <?php endforeach; ?>
+        <?php endif; ?>
+
+        <p style="padding-top: 4px"/>
+
+        <strong style="padding-left: 35px">Recent posts from
+            <a href="http://k.img.com.ua/">k.img.com.ua</a>:
+        </strong>
+        <p id="hdiv"></p>
+        <?php $count = 0; ?>
+        <?php if (isset($this->feeds[1])): ?>
+            <?php foreach ($this->feeds[1] as $entry): ?>
+                <?php if ($count >= 5) break; ?>
+                <p class="post">
+                    <span class="text">
+                      <a href="<?php echo $entry->getLink(); ?>">
+                        <?php echo $entry->getTitle(); ?>
+                      </a>
+                    </span>
+                    <span class="time">
+                      <?php echo $entry->getDateModified(); ?>
+                    </span>
+                </p>
+                <?php $count++; ?>
+            <?php endforeach; ?>
+        <?php endif; ?>
+
+        <p style="padding-top: 4px"/>
+
+        <strong style="padding-left: 35px">Recent posts from
+            <a href="http://www.rbc.ua/">www.rbc.ua</a>:
+        </strong>
+        <p id="hdiv"></p>
+        <?php $count = 0; ?>
+        <?php if (isset($this->feeds[2])): ?>
+            <?php foreach ($this->feeds[2] as $entry): ?>
+                <?php if ($count >= 5) break; ?>
+                <p class="post">
+                    <span class="text">
+                      <a href="<?php echo $entry->getLink(); ?>">
+                        <?php echo $entry->getTitle(); ?>
+                      </a>
+                    </span>
+                    <span class="time">
+                      <?php echo $entry->getDateModified(); ?>
+                    </span>
+                </p>
+                <?php $count++; ?>
+            <?php endforeach; ?>
+        <?php endif; ?>
+    </div>
+
+    <div id="tweets">
+        <strong style="padding-left: 35px">Recent tweets about
+            <a href="http://search.twitter.com/search?q=<?php echo $this->q; ?>">
+                '<?php echo $this->q; ?>'
+            </a>:
+        </strong>
+        <?php if (isset($this->tweets['results']) && is_array($this->tweets['results'])): ?>
+            <?php foreach ($this->tweets['results'] as $tweet): ?>
+                <p class="tweet">
+                    <span class="image">
+                      <img src="<?php echo $tweet['profile_image_url']; ?>"/>
+                    </span>
+                    <span class="user">
+                      <?php echo $tweet['from_user'] . ': '; ?>
+                    </span>
+                    <span class="text">
+                      <?php echo $tweet['text']; ?>
+                    </span>
+                    <span class="time">
+                      <?php echo $tweet['created_at']; ?>
+                    </span>
+                </p>
+            <?php endforeach; ?>
+        <?php endif; ?>
+    </div>
+
+</div>

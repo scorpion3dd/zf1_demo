@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+  <home>
+    <label>menu-home</label>
+    <uri>/home</uri>
+  </home>
+  <services>
+    <label>menu-services</label>
+    <uri>/content/services</uri>
+  </services>
+  <catalog>
+    <label>menu-catalog</label>
+    <uri>/catalog/item/search</uri>
+  </catalog>
+  <news>
+    <label>menu-news</label>
+    <uri>/news</uri>
+  </news>
+  <contact>
+    <label>menu-contact</label>
+    <uri>/contact</uri>
+  </contact>      
+</config>
