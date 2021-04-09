@@ -25,6 +25,12 @@ guide for more detailed system requirements:
 
 http://framework.zend.com/manual/en/requirements.html
 
+1. Web Servers (example Apache)
+2. Apache Lucene
+3. Memcache
+4. MySql
+5. PHP
+
 INSTALLATION
 ============
 
@@ -141,6 +147,13 @@ git clone https://github.com/scorpion3dd/Simple_REST_Full_API_airlines.git ./api
 6. Reload Web Server (example Apache)
 ~~~~~~
 sudo systemctl restart apache2
+~~~~~~
+7. Give write permissions to directories:
+- /data/logs
+- /data/indexes
+~~~~~~
+sudo chmod -R 777 logs
+sudo chmod -R 777 indexes
 ~~~~~~
 
 DESCRIPTION OF WEB
