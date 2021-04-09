@@ -16,7 +16,11 @@ class Api_CatalogController extends Zend_Rest_Controller
     public function init()
     {
         $configs = $this->getInvokeArg('bootstrap')->getOption('api');
-        $this->apiBaseUrl = $configs->baseUrl . self::API_CATALOG;
+        if ($this->isLinux()) {
+            $this->apiBaseUrl = $configs['baseUrl'] . 'vms:8080/index.php' . self::API_CATALOG;
+        } else {
+            $this->apiBaseUrl = $configs['baseUrl'] . 'os' . self::API_CATALOG;
+        }
         $this->_helper->layout->disableLayout();
         $this->getHelper('viewRenderer')->setNoRender(true);
     }

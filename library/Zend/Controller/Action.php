@@ -795,4 +795,15 @@ abstract class Zend_Controller_Action implements Zend_Controller_Action_Interfac
     {
         $this->_helper->redirector->gotoUrl($url, $options);
     }
+
+    /**
+     * @return bool
+     */
+    protected function isLinux()
+    {
+        if (strpos($_SERVER['PATH'], '/usr/local/') === false) {
+            return false;
+        }
+        return true;
+    }
 }
