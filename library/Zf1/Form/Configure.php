@@ -9,8 +9,12 @@ class Zf1_Form_Configure extends Zend_Form
      */
     public function init()
     {
+        $action = '/admin/config';
+        if ($this->isLinux()) {
+            $action = "/index.php$action";
+        }
         // initialize form
-        $this->setAction('/admin/config')
+        $this->setAction($action)
             ->setMethod('post');
 
         // create text input for default email

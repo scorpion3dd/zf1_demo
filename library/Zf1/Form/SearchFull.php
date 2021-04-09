@@ -10,8 +10,12 @@ class Zf1_Form_SearchFull extends Zend_Form
      */
     public function init()
     {
+        $action = '/catalog/item/search-full';
+        if ($this->isLinux()) {
+            $action = "/index.php$action";
+        }
         // initialize form
-        $this->setAction('/catalog/item/search-full')
+        $this->setAction($action)
             ->setMethod('get');
 
         // create text input for keywords

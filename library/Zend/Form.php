@@ -3495,4 +3495,15 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
         }
         return $messages;
     }
+
+    /**
+     * @return bool
+     */
+    protected function isLinux()
+    {
+        if (strpos($_SERVER['PATH'], '/usr/local/') === false) {
+            return false;
+        }
+        return true;
+    }
 }

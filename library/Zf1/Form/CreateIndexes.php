@@ -10,8 +10,12 @@ class Zf1_Form_CreateIndexes extends Zend_Form
      */
     public function init()
     {
+        $action = '/admin/catalog/indexes';
+        if ($this->isLinux()) {
+            $action = "/index.php$action";
+        }
         // initialize form
-        $this->setAction('/admin/catalog/indexes')
+        $this->setAction($action)
             ->setMethod('post');
 
         // create submit button

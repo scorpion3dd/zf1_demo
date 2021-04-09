@@ -13,8 +13,12 @@ class Zf1_Form_ItemUpdate extends Zf1_Form_ItemCreate
         // get parent form
         parent::init();
 
+        $action = '/admin/catalog/item/update';
+        if ($this->isLinux()) {
+            $action = "/index.php$action";
+        }
         // set form action (set to false for current URL)
-        $this->setAction('/admin/catalog/item/update');
+        $this->setAction($action);
 
         // remove unwanted elements
         $this->removeElement('Captcha');

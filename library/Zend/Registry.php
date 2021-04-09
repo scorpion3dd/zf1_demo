@@ -203,7 +203,14 @@ class Zend_Registry extends ArrayObject
      */
     public function offsetExists($index)
     {
-        $obj = $this->offsetGet($index);
+        if($index != 'Zend_View_Helper_Placeholder_Registry'
+            && $index != 'Zend_Dojo_View_Helper_Dojo'
+            && $index != 'Zend_View_Helper_Doctype'
+        ) {
+            $obj = $this->offsetGet($index);
+        } else {
+            $obj = null;
+        }
         return isset($obj);
     }
 

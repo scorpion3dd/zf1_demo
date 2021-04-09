@@ -10,8 +10,12 @@ class Zf1_Form_ItemCreate extends Zend_Form
      */
     public function init()
     {
+        $action = '/catalog/item/create';
+        if ($this->isLinux()) {
+            $action = "/index.php$action";
+        }
         // initialize form
-        $this->setAction('/catalog/item/create')
+        $this->setAction($action)
             ->setMethod('post');
 
         // create text input for name

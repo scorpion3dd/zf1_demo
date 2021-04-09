@@ -15,11 +15,14 @@ class Zf1_Form_SearchSimple extends Zend_Form
      */
     public function init()
     {
+        $action = '/catalog/item/search-simple';
+        if ($this->isLinux()) {
+            $action = "/index.php$action";
+        }
         // initialize form
-        $this->setAction('/catalog/item/search-simple')
+        $this->setAction($action)
             ->setMethod('post');
 
-        // устанавливаем декораторы форм
         $this->setDecorators(array(
                 array('FormErrors', array('markupListItemStart' => '', 'markupListItemEnd' => '')),
                 array('FormElements'),

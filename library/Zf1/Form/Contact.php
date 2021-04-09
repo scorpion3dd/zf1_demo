@@ -9,8 +9,12 @@ class Zf1_Form_Contact extends Zend_Form
      */
     public function init()
     {
+        $action = '/contact/index';
+        if ($this->isLinux()) {
+            $action = "/index.php$action";
+        }
         // initialize form
-        $this->setAction('/contact/index')
+        $this->setAction($action)
             ->setMethod('post');
 
         // create text input for name

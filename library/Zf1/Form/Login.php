@@ -10,8 +10,12 @@ class Zf1_Form_Login extends Zend_Form
      */
     public function init()
     {
+        $action = '/admin/login';
+        if ($this->isLinux()) {
+            $action = "/index.php$action";
+        }
         // initialize form
-        $this->setAction('/admin/login')
+        $this->setAction($action)
             ->setMethod('post');
 
         // create text input for name

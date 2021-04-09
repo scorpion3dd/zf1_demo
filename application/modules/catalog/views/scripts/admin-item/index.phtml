@@ -54,7 +54,7 @@
                 <?php foreach ($this->records as $r): ?>
                     <tr>
                         <td><input type="checkbox" name="ids[]" value="<?php echo $r['RecordID']; ?>"
-                                   style="width:2px"/></td>
+                                   style="width:20px"/></td>
                         <td style="text-align: center"><?php echo $this->escape($r['RecordID']); ?></td>
                         <td>
                             <a href="<?php echo $this->url(array('id' => $this->escape($r['RecordID'])), 'catalog-display'); ?>"

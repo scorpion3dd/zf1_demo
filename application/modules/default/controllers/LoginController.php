@@ -50,6 +50,10 @@ class LoginController extends Zend_Controller_Action
                     $this->view->message = 'You could not be logged in. Please try again.';
                 }
             }
+        } else {
+            if (Zend_Auth::getInstance()->hasIdentity()) {
+                $this->_redirect('/admin/catalog/item/index');
+            }
         }
     }
 

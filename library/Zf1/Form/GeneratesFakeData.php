@@ -10,8 +10,12 @@ class Zf1_Form_GeneratesFakeData extends Zend_Form
      */
     public function init()
     {
+        $action = '/admin/catalog/generates';
+        if ($this->isLinux()) {
+            $action = "/index.php$action";
+        }
         // initialize form
-        $this->setAction('/admin/catalog/generates')
+        $this->setAction($action)
             ->setMethod('post');
 
         // create text input for keywords

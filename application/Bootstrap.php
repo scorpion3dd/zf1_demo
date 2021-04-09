@@ -16,40 +16,12 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     }
 
     /**
-     * @return Doctrine_Connection
-     * @throws Doctrine_Exception
-     * @throws Doctrine_Manager_Exception
-     * @throws Zend_Exception
-     */
-    protected function _initDoctrine()
-    {
-        $libraryBaseDir = SITE_ROOT_DIR . '/library/Doctrine/lib/Doctrine.php';
-        require_once $libraryBaseDir;
-        $this->getApplication()->getAutoloader()
-            ->pushAutoloader(array('Doctrine', 'autoload'), 'Doctrine');
-
-        $manager = Doctrine_manager::getInstance();
-        $manager->setAttribute(
-            Doctrine::ATTR_MODEL_LOADING,
-            Doctrine::MODEL_LOADING_CONSERVATIVE
-        );
-
-        $host = Zend_Registry::get('config')->resources->db->zf1->host;
-        $username = Zend_Registry::get('config')->resources->db->zf1->username;
-        $password = Zend_Registry::get('config')->resources->db->zf1->password;
-        $dbname = Zend_Registry::get('config')->resources->db->zf1->dbname;
-
-        $conn = Doctrine_manager::connection("mysql://$username:$password@$host/$dbname",'doctrine');
-
-        return $conn;
-    }
-
-    /**
      * @throws Zend_Locale_Exception
      */
     protected function _initLocale()
     {
         $session = new Zend_Session_Namespace('zf1.l10n');
+        $locale = null;
         if ($session->locale) {
             $locale = new Zend_Locale($session->locale);
         }
@@ -133,9 +105,39 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     {
         $this->bootstrap('cachemanager');
         $manager = $this->getResource('cachemanager');
+        if (!extension_loaded('memcache')) {
+            echo "memcache no loaded";
+        }
         $memoryCache = $manager->getCache('memory');
         Zend_Locale::setCache($memoryCache);
         Zend_Translate::setCache($memoryCache);
+    }
+
+    /**
+     * @return Doctrine_Connection
+     * @throws Doctrine_Exception
+     * @throws Doctrine_Manager_Exception
+     * @throws Zend_Exception
+     */
+    protected function _initDoctrine()
+    {
+        $libraryBaseDir = SITE_ROOT_DIR . '/library/Doctrine/lib/';
+        require_once $libraryBaseDir . 'Doctrine.php';
+        $this->getApplication()->getAutoloader()
+            ->pushAutoloader(array('Doctrine', 'autoload'), 'Doctrine');
+        $manager = Doctrine_Manager::getInstance();
+        $manager->setAttribute(
+            Doctrine::ATTR_MODEL_LOADING,
+            Doctrine::MODEL_LOADING_CONSERVATIVE
+        );
+        $host = Zend_Registry::get('config')->resources->db->zf1->host;
+        $username = Zend_Registry::get('config')->resources->db->zf1->username;
+        $password = Zend_Registry::get('config')->resources->db->zf1->password;
+        $dbname = Zend_Registry::get('config')->resources->db->zf1->dbname;
+
+        $conn = Doctrine_Manager::connection("mysql://$username:$password@$host/$dbname",'doctrine');
+
+        return $conn;
     }
 }
 

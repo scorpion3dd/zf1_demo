@@ -15,7 +15,7 @@ class DoctrineController extends Zend_Controller_Action
      */
     public function init()
     {
-        $this->manager = Doctrine_manager::getInstance();
+        $this->manager = Doctrine_Manager::getInstance();
         $this->conn = $this->manager->getConnection('doctrine');
 
         $this->request = $this->getRequest();

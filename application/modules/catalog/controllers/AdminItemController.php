@@ -190,6 +190,8 @@ class Catalog_AdminItemController extends Zend_Controller_Action
 
                 $this->_helper->getHelper('FlashMessenger')->addMessage('The record was successfully updated.');
                 $this->_redirect('/admin/catalog/item/success');
+            } else {
+                throw new Zend_Controller_Action_Exception('Invalid input');
             }
         } else {
             // if GET request
@@ -349,55 +351,62 @@ class Catalog_AdminItemController extends Zend_Controller_Action
         $form = new Zf1_Form_CreateIndexes;
         $this->view->form = $form;
         $request = $this->getRequest();
-        if ($request->isPost() && $form->isValid($this->getRequest()->getParams())) {
-            try {
-                $start = microtime(true);
-                set_time_limit(0);
+        if ($request->isPost()) {
+            if ($form->isValid($this->getRequest()->getParams())) {
+                try {
+                    $start = microtime(true);
+                    set_time_limit(0);
 
-                // create and execute query
-                $q = Doctrine_Query::create()
-                    ->from('Zf1_Model_Item i')
-                    ->leftJoin('i.Zf1_Model_Country c')
-                    ->leftJoin('i.Zf1_Model_Grade g')
-                    ->leftJoin('i.Zf1_Model_Type t')
-                    ->where('i.DisplayStatus = 1')
-                    ->addWhere('i.DisplayUntil >= CURDATE()');
-                $result = $q->fetchArray();
+                    // create and execute query
+                    $q = Doctrine_Query::create()
+                        ->from('Zf1_Model_Item i')
+                        ->leftJoin('i.Zf1_Model_Country c')
+                        ->leftJoin('i.Zf1_Model_Grade g')
+                        ->leftJoin('i.Zf1_Model_Type t')
+                        ->where('i.DisplayStatus = 1')
+                        ->addWhere('i.DisplayUntil >= CURDATE()');
+                    $result = $q->fetchArray();
 
-                // get index directory
-                $config = $this->getInvokeArg('bootstrap')->getOption('indexes');
-                $index = Zend_Search_Lucene::create($config['indexPath']);
+                    // get index directory
+                    $config = $this->getInvokeArg('bootstrap')->getOption('indexes');
+                    $index = Zend_Search_Lucene::create($config['indexPath']);
 
-                foreach ($result as $r) {
-                    // create new document in index
-                    $doc = new Zend_Search_Lucene_Document();
+                    foreach ($result as $r) {
+                        // create new document in index
+                        $doc = new Zend_Search_Lucene_Document();
 
-                    // index and store fields
-                    $doc->addField(Zend_Search_Lucene_Field::Text('Title', $r['Title']));
-                    $doc->addField(Zend_Search_Lucene_Field::Text('Country', $r['Zf1_Model_Country']['CountryName']));
-                    $doc->addField(Zend_Search_Lucene_Field::Text('Grade', $r['Zf1_Model_Grade']['GradeName']));
-                    $doc->addField(Zend_Search_Lucene_Field::Text('Year', $r['Year']));
-                    $doc->addField(Zend_Search_Lucene_Field::UnStored('Description', $r['Description']));
-                    $doc->addField(Zend_Search_Lucene_Field::UnStored('Denomination', $r['Denomination']));
-                    $doc->addField(Zend_Search_Lucene_Field::UnStored('Type', $r['Zf1_Model_Type']['TypeName']));
-                    $doc->addField(Zend_Search_Lucene_Field::UnIndexed('SalePriceMin', $r['SalePriceMin']));
-                    $doc->addField(Zend_Search_Lucene_Field::UnIndexed('SalePriceMax', $r['SalePriceMax']));
-                    $doc->addField(Zend_Search_Lucene_Field::UnIndexed('RecordID', $r['RecordID']));
+                        // index and store fields
+                        $doc->addField(Zend_Search_Lucene_Field::Text('Title', $r['Title']));
+                        $doc->addField(Zend_Search_Lucene_Field::Text('Country', $r['Zf1_Model_Country']['CountryName']));
+                        $doc->addField(Zend_Search_Lucene_Field::Text('Grade', $r['Zf1_Model_Grade']['GradeName']));
+                        $doc->addField(Zend_Search_Lucene_Field::Text('Year', $r['Year']));
+                        $doc->addField(Zend_Search_Lucene_Field::UnStored('Description', $r['Description']));
+                        $doc->addField(Zend_Search_Lucene_Field::UnStored('Denomination', $r['Denomination']));
+                        $doc->addField(Zend_Search_Lucene_Field::UnStored('Type', $r['Zf1_Model_Type']['TypeName']));
+                        $doc->addField(Zend_Search_Lucene_Field::UnIndexed('SalePriceMin', $r['SalePriceMin']));
+                        $doc->addField(Zend_Search_Lucene_Field::UnIndexed('SalePriceMax', $r['SalePriceMax']));
+                        $doc->addField(Zend_Search_Lucene_Field::UnIndexed('RecordID', $r['RecordID']));
 
-                    // save result to index
-                    $index->addDocument($doc);
+                        // save result to index
+                        $index->addDocument($doc);
+                    }
+
+                    // set number of documents in index
+                    $count = $index->count();
+
+                    $end = microtime(true);
+                    $time = round($end - $start, 2);
+                    $this->_helper->getHelper('FlashMessenger')
+                        ->addMessage("The index was successfully created with $count documents by $time seconds.");
+                    $this->_redirect('/admin/catalog/item/success');
+                } catch (\Zend_Exception $fault) {
+                    $error = 'ERROR - Zend_Search_Lucene create indexes: '
+                        . 'faultcode = ' . $fault->getCode()
+                        . ', faultstring = ' . $fault->getMessage();
+                    throw new Zend_Controller_Action_Exception($error);
                 }
-
-                // set number of documents in index
-                $count = $index->count();
-
-                $end = microtime(true);
-                $time = round($end - $start, 2);
-                $this->_helper->getHelper('FlashMessenger')
-                    ->addMessage("The index was successfully created with $count documents by $time seconds.");
-                $this->_redirect('/admin/catalog/item/success');
-            } catch (\Zend_Exception $fault) {
-                $error2 = 'faultcode = ' . $fault->getCode() . ', faultstring = ' . $fault->getMessage();
+            } else {
+                throw new Zend_Controller_Action_Exception('Invalid input');
             }
         }
     }
@@ -411,57 +420,63 @@ class Catalog_AdminItemController extends Zend_Controller_Action
     {
         $form = new Zf1_Form_GeneratesFakeData;
         $this->view->form = $form;
+        if ($this->getRequest()->isPost()) {
+            if ($form->isValid($this->getRequest()->getParams())) {
+                $start = microtime(true);
+                $input = $form->getValues();
+                if (!empty($input['countFaker'])) {
+                    try {
+                        set_time_limit(0);
 
-        if ($form->isValid($this->getRequest()->getParams())) {
-            $start = microtime(true);
-            $input = $form->getValues();
-            if (!empty($input['countFaker'])) {
-                try {
-                    set_time_limit(0);
+                        // require the Faker autoloader
+                        $libraryBaseDir = SITE_ROOT_DIR . '/library/Faker/src/autoload.php';
+                        require_once $libraryBaseDir;
 
-                    // require the Faker autoloader
-                    $libraryBaseDir = SITE_ROOT_DIR . '/library/Faker/src/autoload.php';
-                    require_once $libraryBaseDir;
-
-                    // use the factory to create a Faker\Generator instance
-                    $faker = Faker\Factory::create();
-                    $countFaker = (int)$input['countFaker'];
-                    $results = '';
-                    for ($i = 0; $i < $countFaker; $i++) {
-                        $item = new Zf1_Model_Item();
-                        $item->RecordDate = $faker->date('Y-m-d');
-                        $item->SellerName = $faker->name;
-                        $item->SellerEmail = $faker->email;
-                        $item->SellerTel = $faker->phoneNumber;
-                        $item->SellerAddress = $faker->address;
-                        $item->Title = $faker->text;
-                        $item->Year = $faker->year();
-                        $item->CountryID = $faker->numberBetween(1, 16);
-                        $item->Denomination = $faker->numberBetween(1, 10);
-                        $item->TypeID = $faker->numberBetween(1, 5);
-                        $item->GradeID = $faker->numberBetween(1, 5);
-                        $item->SalePriceMin = $faker->numberBetween(1, 10);
-                        $item->SalePriceMax = $faker->numberBetween(100, 1000);
-                        $item->Description = $faker->text;
-                        $item->DisplayStatus = 1;
-                        $item->DisplayUntil = '2020-12-31';
-                        $item->save();
-                        $id = $item->getIncremented();
-                        if ($results == '') {
-                            $results .= $id;
-                        } else {
-                            $results .= ', ' . $id;
+                        // use the factory to create a Faker\Generator instance
+                        $faker = Faker\Factory::create();
+                        $countFaker = (int)$input['countFaker'];
+                        $results = '';
+                        for ($i = 0; $i < $countFaker; $i++) {
+                            $item = new Zf1_Model_Item();
+                            $item->RecordDate = $faker->date('Y-m-d');
+                            $item->SellerName = $faker->name;
+                            $item->SellerEmail = $faker->email;
+                            $item->SellerTel = $faker->phoneNumber;
+                            $item->SellerAddress = $faker->address;
+                            $item->Title = $faker->text;
+                            $item->Year = $faker->year();
+                            $item->CountryID = $faker->numberBetween(1, 16);
+                            $item->Denomination = $faker->numberBetween(1, 10);
+                            $item->TypeID = $faker->numberBetween(1, 5);
+                            $item->GradeID = $faker->numberBetween(1, 5);
+                            $item->SalePriceMin = $faker->numberBetween(1, 10);
+                            $item->SalePriceMax = $faker->numberBetween(100, 1000);
+                            $item->Description = $faker->text;
+                            $item->DisplayStatus = 1;
+                            $item->DisplayUntil = '2020-12-31';
+                            $item->save();
+                            $id = $item->getIncremented();
+                            if ($results == '') {
+                                $results .= $id;
+                            } else {
+                                $results .= ', ' . $id;
+                            }
                         }
-                    }
-                    $end = microtime(true);
-                    $time = round($end - $start, 2);
+                        $end = microtime(true);
+                        $time = round($end - $start, 2);
 
-                    $this->view->countFaker = $countFaker;
-                    $this->view->results = $results;
-                    $this->view->time = $time;
-                } catch (\Zend_Exception $fault) {
-                    $error2 = 'faultcode = ' . $fault->getCode() . ', faultstring = ' . $fault->getMessage();
+                        $this->view->countFaker = $countFaker;
+                        $this->view->results = $results;
+                        $this->view->time = $time;
+                    } catch (\Zend_Exception $fault) {
+                        $error = 'ERROR - Faker\Generator: '
+                            . 'faultcode = ' . $fault->getCode()
+                            . ', faultstring = ' . $fault->getMessage();
+                        throw new Zend_Controller_Action_Exception($error);
+                    }
                 }
+            } else {
+                throw new Zend_Controller_Action_Exception('Invalid input');
             }
         }
     }
