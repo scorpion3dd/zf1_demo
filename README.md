@@ -151,9 +151,13 @@ sudo systemctl restart apache2
 7. Give write permissions to directories:
 - /data/logs
 - /data/indexes
+- /public/captcha
+- /public/uploads
 ~~~~~~
 sudo chmod -R 777 logs
 sudo chmod -R 777 indexes
+sudo chmod -R 777 captcha
+sudo chmod -R 777 uploads
 ~~~~~~
 
 DESCRIPTION OF WEB

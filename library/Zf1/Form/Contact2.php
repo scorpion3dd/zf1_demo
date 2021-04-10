@@ -24,7 +24,7 @@ class Zf1_Form_Contact2 extends Zend_Form
             ->setRequired(true)
             ->addValidator('NotEmpty', true)
             ->addValidator('Alpha', true)
-            ->addFilter('HTMLEntities')
+            ->addFilter('HtmlEntities')
             ->addFilter('StringTrim');
 
         // create text input for email address
@@ -34,7 +34,7 @@ class Zf1_Form_Contact2 extends Zend_Form
             ->setRequired(true)
             ->addValidator('NotEmpty', true)
             ->addValidator('EmailAddress', true)
-            ->addFilter('HTMLEntities')
+            ->addFilter('HtmlEntities')
             ->addFilter('StringToLower')
             ->addFilter('StringTrim');
 
@@ -49,7 +49,7 @@ class Zf1_Form_Contact2 extends Zend_Form
             'dijitParams' => array('searchAttr' => 'name')))
             ->setRequired(true)
             ->addValidator('NotEmpty', true)
-            ->addFilter('HTMLEntities')
+            ->addFilter('HtmlEntities')
             ->addFilter('StringToLower')
             ->addFilter('StringTrim');
 
@@ -59,7 +59,7 @@ class Zf1_Form_Contact2 extends Zend_Form
             ->setOptions(array('rows' => '8','cols' => '40'))
             ->setRequired(true)
             ->addValidator('NotEmpty', true)
-            ->addFilter('HTMLEntities')
+            ->addFilter('HtmlEntities')
             ->addFilter('StringTrim');
 
         // create captcha
