@@ -34,14 +34,14 @@ http://framework.zend.com/manual/en/requirements.html
 INSTALLATION
 ============
 
-1. Create DB zf1.demo
+1. Create DB zf1_demo
 ~~~~~~
-CREATE DATABASE zf1.demo
+CREATE DATABASE zf1_demo
 CHARACTER SET utf8mb4
 COLLATE utf8mb4_0900_ai_ci;
 ~~~~~~
 
-2. Create tables in the zf1.demo database by executing the SQL script:
+2. Create tables in the zf1_demo database by executing the SQL script:
 
 ~~~~~~
 CREATE TABLE country (
@@ -226,7 +226,7 @@ top margin. Excellent condition, no marks.]]></summary>
 GET /api/catalog/1
 OUT OK (200):
 <?xml version="1.0" encoding="UTF-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom" xmlns:zf1="http://zf1.demo">
+<feed xmlns="http://www.w3.org/2005/Atom" xmlns:zf1="http://zf1_demo">
   <id>/api/catalog/1</id>
   <title><![CDATA[Catalog record for item ID: 1]]></title>
   <author>
@@ -243,15 +243,15 @@ OUT OK (200):
     <summary><![CDATA[Silver jubilee issue. Aerial view of snow-capped.  
 Himalayan mountains. Horizontal orange stripe across  
 top margin. Excellent condition, no marks.]]></summary>
-    <zf1:id xmlns:zf1="http://zf1.demo">1</zf1:id>
-    <zf1:title xmlns:zf1="http://zf1.demo">Himalayas - Silver Jubilee</zf1:title>
-    <zf1:year xmlns:zf1="http://zf1.demo">1958</zf1:year>
-    <zf1:grade xmlns:zf1="http://zf1.demo">Fine</zf1:grade>
-    <zf1:description xmlns:zf1="http://zf1.demo">Silver jubilee issue. Aerial view of snow-capped.  &#13;
+    <zf1:id xmlns:zf1="http://zf1_demo">1</zf1:id>
+    <zf1:title xmlns:zf1="http://zf1_demo">Himalayas - Silver Jubilee</zf1:title>
+    <zf1:year xmlns:zf1="http://zf1_demo">1958</zf1:year>
+    <zf1:grade xmlns:zf1="http://zf1_demo">Fine</zf1:grade>
+    <zf1:description xmlns:zf1="http://zf1_demo">Silver jubilee issue. Aerial view of snow-capped.  &#13;
 Himalayan mountains. Horizontal orange stripe across  &#13;
 top margin. Excellent condition, no marks.</zf1:description>
-    <zf1:country xmlns:zf1="http://zf1.demo">India</zf1:country>
-    <zf1:price xmlns:zf1="http://zf1.demo">
+    <zf1:country xmlns:zf1="http://zf1_demo">India</zf1:country>
+    <zf1:price xmlns:zf1="http://zf1_demo">
       <zf1:min>10</zf1:min>
       <zf1:max>15</zf1:max>
     </zf1:price>
@@ -261,7 +261,7 @@ top margin. Excellent condition, no marks.</zf1:description>
 
 3. save one new item into the catalog
 ~~~~~~
-POST http://zf1.demo.os/api/catalog
+POST http://zf1_demo.os/api/catalog
 Content-Type: multipart/form-data; boundary=WebAppBoundary
 
 --WebAppBoundary
@@ -339,7 +339,7 @@ OUT ERROR (500)
 
 4. update one item into the catalog
 ~~~~~~
-PUT http://zf1.demo.os/api/catalog/1?Year=1998
+PUT http://zf1_demo.os/api/catalog/1?Year=1998
 
 OUT OK (200):
 /api/catalog/1
@@ -352,7 +352,7 @@ Invalid record identifier
 
 5. delete one item into the catalog
 ~~~~~~
-DELETE http://zf1.demo.os/api/catalog/1
+DELETE http://zf1_demo.os/api/catalog/1
 
 OUT OK (200):
 deleted id = 1
@@ -363,7 +363,7 @@ Invalid record identifier
 
 6. head one item into the catalog
 ~~~~~~
-HEAD http://zf1.demo.os/api/catalog/1
+HEAD http://zf1_demo.os/api/catalog/1
 
 OUT OK (200)
 
