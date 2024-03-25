@@ -16,7 +16,7 @@ class Zf1_Form_SearchSimple extends Zend_Form
     public function init()
     {
         $action = '/catalog/item/search-simple';
-        if ($this->isLinux()) {
+        if (Zf1_Helper_Server::isApache() && ! Zf1_Helper_Server::isNginx()) {
             $action = "/index.php$action";
         }
         // initialize form

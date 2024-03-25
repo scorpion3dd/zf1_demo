@@ -14,7 +14,7 @@ class Zf1_Form_ItemUpdate2 extends Zf1_Form_ItemCreate
         parent::init();
 
         $action = '/admin/catalog/item/update';
-        if ($this->isLinux()) {
+        if (Zf1_Helper_Server::isApache() && ! Zf1_Helper_Server::isNginx()) {
             $action = "/index.php$action";
         }
         // set form action (set to false for current URL)

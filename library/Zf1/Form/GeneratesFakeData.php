@@ -11,7 +11,7 @@ class Zf1_Form_GeneratesFakeData extends Zend_Form
     public function init()
     {
         $action = '/admin/catalog/generates';
-        if ($this->isLinux()) {
+        if (Zf1_Helper_Server::isApache() && ! Zf1_Helper_Server::isNginx()) {
             $action = "/index.php$action";
         }
         // initialize form

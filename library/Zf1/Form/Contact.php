@@ -10,7 +10,7 @@ class Zf1_Form_Contact extends Zend_Form
     public function init()
     {
         $action = '/contact/index';
-        if ($this->isLinux()) {
+        if (Zf1_Helper_Server::isApache() && ! Zf1_Helper_Server::isNginx()) {
             $action = "/index.php$action";
         }
         // initialize form

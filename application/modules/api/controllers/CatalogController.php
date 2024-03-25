@@ -16,7 +16,7 @@ class Api_CatalogController extends Zend_Rest_Controller
     public function init()
     {
         $configs = $this->getInvokeArg('bootstrap')->getOption('api');
-        if ($this->isLinux()) {
+        if (Zf1_Helper_Server::isApache() && ! Zf1_Helper_Server::isNginx()) {
             $this->apiBaseUrl = $configs['baseUrl'] . 'vms:8080/index.php' . self::API_CATALOG;
         } else {
             $this->apiBaseUrl = $configs['baseUrl'] . 'os' . self::API_CATALOG;
